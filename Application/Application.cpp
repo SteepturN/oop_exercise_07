@@ -62,6 +62,9 @@ void Application::export_document(const std::string& name) const { //save doc in
 	}
 	doc.close();
 }
+int Application::buff_size() const{
+	return buff.size();
+}
 void Application::import_document(const std::string& name) {
 	enum {
 	OCTAHEDRON_SIZE = 8,
@@ -72,8 +75,7 @@ void Application::import_document(const std::string& name) {
 	std::fstream doc(name, io::in | io::binary);
 	clear_buf();
 	typename Figure<double>::size_type read_figure_size;
-	doc.read(reinterpret_cast<char*>(read_figure_size),
-	         sizeof(Figure<double>::size_type));
+	doc.read(reinterpret_cast<char*>(&read_figure_size), sizeof(Figure<double>::size_type));
 	while(doc.good()) {
 		Figure<double>* read_figure_ptr;
 		switch(read_figure_size) {
@@ -87,6 +89,7 @@ void Application::import_document(const std::string& name) {
 				read_figure_ptr = new Square<double>;
 			    break;
 		}
+		read_figure_ptr->verteces.resize(read_figure_size);
 		for(int i = 0; i < read_figure_size; ++i) {
 			doc.read(reinterpret_cast<char*>(&(read_figure_ptr->verteces[i])),
 			         sizeof(Figure<double>::vertex_type));
@@ -96,6 +99,7 @@ void Application::import_document(const std::string& name) {
 		         sizeof(Figure<double>::size_type));
 	}
 	doc.close();
+	undo_f = [](){};
 }
 
 void Application::draw() const {

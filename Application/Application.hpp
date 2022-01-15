@@ -28,6 +28,7 @@ class Application {
 		void clear() const;
 
 		void print_document() const;
+		int buff_size() const;
 	private:
 		std::function<void()> undo_f;
 		std::list<std::shared_ptr<Figure<double>>> buff;

@@ -49,48 +49,51 @@ double distance(std::pair<T, T> o1, std::pair<T, T> o2) {
 	return sqrt(pow(o1.first - o2.first, 2)+pow(o1.second - o2.second, 2));
 }
 //«std::istream& operator>><int>(std::istream&, Figure<int>&)»
-template <typename T>
-std::istream& operator>>(std::istream& cin, Figure<T>& t) {
-	enum {
-	FIRST_AXIS = 0,
-	SECOND_AXIS = 1,
-    };
-	char ch(' ');
-	Figure<T> copy = t;
-	for(int i = 0, cur_axis = 0; i < ( t.size() - 1 ) * 2;
-	    ++i, cur_axis = (cur_axis + 1)%2) {
-		while((ch == '\t') || (ch == ' ') || (ch == '\n')) {
-			cin >> ch;
-			if(cin.eof()) {
-				t = copy;
-				return cin;
-			}
-		}
-		cin.unget();
-		ch = ' ';
-		if(cur_axis == FIRST_AXIS)
-			cin >> t.verteces[i/2].first;
-		else //(cur_axis == SECOND_AXIS)
-			cin >> t.verteces[i/2].second;
-		if(cin.fail()) {
-			t = copy;
-			return cin;
-		}
-	}
-	if((distance(t.verteces[0], t.verteces[1]) !=
-	    distance(t.verteces[1], t.verteces[2])) ||
-	   (distance(t.verteces[0], t.verteces[2])
-	    != distance(t.verteces[0], t.verteces[1])*sqrt(2))){
-		t = copy;
-		cin.setstate(std::ios_base::failbit);
-		return cin;
-	}
-	t.verteces[3].first = t.verteces[0].first - t.verteces[1].first
-		+ t.verteces[2].first;
-	t.verteces[3].second = t.verteces[0].second - t.verteces[1].second
-		+ t.verteces[2].second;
-	return cin;
-}
+
+// template <typename T>
+// std::istream& operator>>(std::istream& cin, Figure<T>& t) {
+// 	enum {
+// 	FIRST_AXIS = 0,
+// 	SECOND_AXIS = 1,
+//     };
+// 	char ch(' ');
+// 	Figure<T> copy = t;
+// 	for(int i = 0, cur_axis = 0; i < ( t.size() - 1 ) * 2;
+// 	    ++i, cur_axis = (cur_axis + 1)%2) {
+// 		while((ch == '\t') || (ch == ' ') || (ch == '\n')) {
+// 			cin >> ch;
+// 			if(cin.eof()) {
+// 				t = copy;
+// 				return cin;
+// 			}
+// 		}
+// 		cin.unget();
+// 		ch = ' ';
+// 		if(cur_axis == FIRST_AXIS)
+// 			cin >> t.verteces[i/2].first;
+// 		else //(cur_axis == SECOND_AXIS)
+// 			cin >> t.verteces[i/2].second;
+// 		if(cin.fail()) {
+// 			t = copy;
+// 			return cin;
+// 		}
+// 	}
+// 	if((distance(t.verteces[0], t.verteces[1]) !=
+// 	    distance(t.verteces[1], t.verteces[2])) ||
+// 	   (distance(t.verteces[0], t.verteces[2])
+// 	    != distance(t.verteces[0], t.verteces[1])*sqrt(2))){
+// 		t = copy;
+// 		cin.setstate(std::ios_base::failbit);
+// 		return cin;
+// 	}
+// 	t.verteces[3].first = t.verteces[0].first - t.verteces[1].first
+// 		+ t.verteces[2].first;
+// 	t.verteces[3].second = t.verteces[0].second - t.verteces[1].second
+// 		+ t.verteces[2].second;
+// 	return cin;
+// }
+
+
 // template <typename T>
 // void make_2_more_verteces(Figure<T>& t, double side_length) {
 // 	double _distance = distance(t.verteces[0], t.verteces[2]);

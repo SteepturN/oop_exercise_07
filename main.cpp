@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 \
 --print figures: print\n\
 --add figure (square, triangle, octahendron): add *s || t || o*\n\
-    *(point) 3 times* *position to put in*\n\
+    *(point) 3 times, for octahedron 8* *position to put in*\n\
 --delete figure: delete *position of figure*\n\
 --undo last add/delete: undo\n\
 --help for this list of commands\n\
@@ -77,42 +77,51 @@ int main(int argc, char *argv[]) {
 			std::string figure_type_str =
 				static_cast<std::string>(figure_type);
 			if(figure_type_str == "t") {
-				Triangle<double> t;
-				if(get_value<Triangle<double>>(t) != VALID_INPUT)
+				Triangle<double>* t = new Triangle<double>;
+				if(get_value<Triangle<double>>(*t) != VALID_INPUT) {
 					std::cout << "wrong input\n";
-				else {
+					delete t;
+				} else {
 					int index;
-					if(get_value<int>(index) != VALID_INPUT)
+					if(get_value<int>(index) != VALID_INPUT || index > app.buff_size()) {
 						std::cout << "wrong input\n";
-					else
-						app.add(index, std::shared_ptr<Figure<double>>(
-							        reinterpret_cast<Figure<double>*>(&t)));
+						delete t;
+					} else {
+						Figure<double>* f = t;
+						app.add(index, std::shared_ptr<Figure<double>>(f));
+					}
 				}
 			}
-			if(figure_type_str == "o") {
-				Octahedron<double> t;
-				if(get_value<Octahedron<double>>(t) != VALID_INPUT)
+			else if(figure_type_str == "o") {
+				Octahedron<double>* t = new Octahedron<double>;
+				if(get_value<Octahedron<double>>(*t) != VALID_INPUT) {
 					std::cout << "wrong input\n";
-				else {
+					delete t;
+				} else {
 					int index;
-					if(get_value<int>(index) != VALID_INPUT)
+					if(get_value<int>(index) != VALID_INPUT || index > app.buff_size()) {
 						std::cout << "wrong input\n";
-					else
-						app.add(index, std::shared_ptr<Figure<double>>(
-							        reinterpret_cast<Figure<double>*>(&t)));
+						delete t;
+					} else {
+						Figure<double>* f = t;
+						app.add(index, std::shared_ptr<Figure<double>>(f));
+					}
 				}
 			}
-			if(figure_type_str == "s") {
-				Square<double> t;
-				if(get_value<Square<double>>(t) != VALID_INPUT)
+			else if(figure_type_str == "s") {
+				Square<double>* t = new Square<double>;
+				if(get_value<Square<double>>(*t) != VALID_INPUT) {
 					std::cout << "wrong input\n";
-				else {
+					delete t;
+				} else {
 					int index;
-					if(get_value<int>(index) != VALID_INPUT)
+					if(get_value<int>(index) != VALID_INPUT || index > app.buff_size()) {
 						std::cout << "wrong input\n";
-					else
-						app.add(index, std::shared_ptr<Figure<double>>(
-							        reinterpret_cast<Figure<double>*>(&t)));
+						delete t;
+					} else {
+						Figure<double>* f = t;
+						app.add(index, std::shared_ptr<Figure<double>>(f));
+					}
 				}
 			}
 		} else if (command_string == "delete") {

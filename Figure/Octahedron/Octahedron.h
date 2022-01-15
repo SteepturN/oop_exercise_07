@@ -19,14 +19,14 @@ std::istream& operator>>(std::istream& cin, Octahedron<T>& t);
 template <typename T>
 class Octahedron : public Figure<T> {
 	public:
-		typename Figure<T>::size_type size() const noexcept override {
+		Octahedron();
+		inline constexpr typename Figure<T>::size_type size() const noexcept override {
 			return NUM_OF_VERTECES_O;
-		};
-		void type() const noexcept override {
-			std::cout << "octahedron";
-		};
+		}
+		inline void type() const noexcept override {
+			std::cout << "Octahedron";
+		}
+
 		friend std::ostream& operator<< <>(std::ostream& cout, const Octahedron<T>& t);
 		friend std::istream& operator>> <>(std::istream& cin, Octahedron<T>& t);
 };
-
-//#include "Octahedron.tpp"

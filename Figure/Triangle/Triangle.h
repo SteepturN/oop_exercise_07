@@ -19,14 +19,14 @@ std::istream& operator>>(std::istream& cin, Triangle<T>& t);
 template <typename T>
 class Triangle : public Figure<T> {
 	public:
-		typename Figure<T>::size_type size() const noexcept override {
+		Triangle();
+		inline constexpr typename Figure<T>::size_type size() const noexcept override {
 			return NUM_OF_VERTECES_T;
 		}
-		void type() const noexcept override {
+		inline void type() const noexcept override {
 			std::cout << "triangle";
 		}
+
 		friend std::ostream& operator<< <>(std::ostream& cout, const Triangle<T>& t);
 		friend std::istream& operator>> <>(std::istream& cin, Triangle<T>& t);
 };
-
-//#include "Triangle.tpp"
