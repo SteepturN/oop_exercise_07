@@ -1,0 +1,30 @@
+add s 0 0 1 0 1 1 0
+add s 3 3 4 3 4 4 1
+add o 0 0 3 0 0
+add o 0 1 4 3 0
+add t 0 0 3 0 0
+add t 4 0 3 2 1
+
+print
+draw
+
+create abc.test
+export abc.test
+
+delete 0
+delete 0
+delete 0
+
+print
+delete 0
+delete 0
+delete 0
+
+print
+draw
+
+undo
+print
+
+import abc.test
+print

@@ -13,7 +13,7 @@ Figure<T>::Figure()
 	: verteces(std::vector<std::pair<T, T>>()) {}
 template <typename T>
 Figure<T>& Figure<T>::operator=(const Figure<T>& obj) noexcept {
-	for(int i = 0; i < size(); ++i) {
+	for(std::size_t i = 0; i < size(); ++i) {
 		verteces[i] = obj.verteces[i];
 	}
 	return *this;
@@ -21,7 +21,7 @@ Figure<T>& Figure<T>::operator=(const Figure<T>& obj) noexcept {
 template <typename T>
 bool Figure<T>::operator==(const Figure<T>& obj) const noexcept{
 	bool result = true;
-	for(int i = 0; i < size(); ++i) {
+	for(std::size_t i = 0; i < size(); ++i) {
 		if(verteces[i] != obj.verteces[i]) {
 			result = false;
 			break;
@@ -32,16 +32,20 @@ bool Figure<T>::operator==(const Figure<T>& obj) const noexcept{
 template <typename T>
 std::ostream& operator<<(std::ostream& cout, const Figure<T>& obj) {
 
+	cout << obj.type() << '\n';
 	cout << "sides' length:\n";
 
-	for(int i = 0; i < (&obj)->size(); ++i) {
+	for(std::size_t i = 0; i < (&obj)->size(); ++i) {
 		auto v1 = obj.verteces[i];
 		auto v2 = obj.verteces[(i + 1) % (&obj)->size()];
 		cout << "side " << i << ": " << sqrt(pow(v1.first - v2.first, 2) +
 		             pow(v1.second - v2.second, 2)) << '\n';
 	}
-	cout << "coordinates: ";
-	obj.coordinates();
+	cout << "coordinates:\n";
+	for(std::size_t i = 0; i < obj.size(); ++i)
+		cout << '(' << obj.verteces[i].first << ", "
+		     << obj.verteces[i].second << ")\n";
+	cout << "area = " << obj.area() <<'\n';
 	return cout;
 }
 template <typename T>
@@ -163,7 +167,7 @@ double distance(std::pair<T, T> o1, std::pair<T, T> o2) {
 template <typename T>
 typename Figure<T>::vertex_type Figure<T>::center() const noexcept{
 	typename Figure<T>::vertex_type _center(0, 0);
-	for(int i = 0; i < size(); ++i) {
+	for(std::size_t i = 0; i < size(); ++i) {
 		_center.first+=verteces[i].first;
 		_center.second+=verteces[i].second;
 	}
@@ -172,13 +176,13 @@ typename Figure<T>::vertex_type Figure<T>::center() const noexcept{
 	return _center;
 }
 template <typename T> void Figure<T>::coordinates() const noexcept {
-	for(int i = 0; i < size(); ++i)
+	for(std::size_t i = 0; i < size(); ++i)
 		std::cout << '(' << verteces[i].first << ", "
 		          << verteces[i].second << ')';
 }
 template <typename T> double Figure<T>::area() const noexcept {
 	double area = 0;
-	for(int i = 0; i < size(); ++i) {
+	for(std::size_t i = 0; i < size(); ++i) {
 		area +=
 			verteces[ i ].first * verteces[( i + 1 ) % size()].second
 			- verteces[( i + 1 ) % size()].first * verteces[ i ].second;

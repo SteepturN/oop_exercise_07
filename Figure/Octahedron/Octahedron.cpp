@@ -31,31 +31,36 @@ double distance(std::pair<T, T> o1, std::pair<T, T> o2) {
 
 template <typename T>
 std::istream& operator>>(std::istream& cin, Octahedron<T>& t) {
-	enum {
-	FIRST_AXIS = 0,
-	SECOND_AXIS = 1,
-    };
-	char ch(' ');
+	const double octahedron_central_angle = M_PI/4.0;
 	Octahedron<T> copy = t;
-	for(int i = 0, cur_axis = 0; i < t.size() * 2;
-	    ++i, cur_axis = (cur_axis + 1)%2) {
-		while((ch == '\t') || (ch == ' ') || (ch == '\n')) {
-			cin >> ch;
-			if(cin.eof()) {
-				t = copy;
-				return cin;
-			}
-		}
-		cin.unget();
-		ch = ' ';
-		if(cur_axis == FIRST_AXIS)
-			cin >> t.verteces[i/2].first;
-		else //(cur_axis == SECOND_AXIS)
-			cin >> t.verteces[i/2].second;
-		if(cin.fail()) {
-			t = copy;
-			return cin;
-		}
+	std::pair<double, double> center;
+	double radius;
+	double fi;
+	cin >> center.first;
+	if(cin.fail()) {
+		t = copy;
+		return cin;
+	}
+	cin >> center.second;
+	if(cin.fail()) {
+		t = copy;
+		return cin;
+	}
+	cin >> radius;
+	if(cin.fail()) {
+		t = copy;
+		return cin;
+	}
+	cin >> fi;
+	if(cin.fail()) {
+		t = copy;
+		return cin;
+	}
+	for(double i = 0; i < t.size(); ++i) {
+		t.verteces[i].first = center.first +
+			radius * cos( fi + i * octahedron_central_angle );
+		t.verteces[i].second = center.second +
+			radius * sin( fi + i * octahedron_central_angle );
 	}
 	return cin;
 }

@@ -37,8 +37,8 @@ std::istream& operator>>(std::istream& cin, Square<T>& t) {
     };
 	char ch(' ');
 	Square<T> copy = t;
-	for(int i = 0, cur_axis = 0; i < ( t.size() - 1 ) * 2;
-	    ++i, cur_axis = (cur_axis + 1)%2) {
+	for(std::size_t i = 0, cur_axis = 0; i < ( t.size() - 1 ) * 2;
+	    ++i, cur_axis = ( cur_axis + 1 ) % 2) {
 		while((ch == '\t') || (ch == ' ') || (ch == '\n')) {
 			cin >> ch;
 			if(cin.eof()) {

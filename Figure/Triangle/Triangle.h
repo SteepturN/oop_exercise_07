@@ -4,6 +4,8 @@
 #include <utility>
 #include <iostream>
 #include <cmath>
+#include <string>
+
 #include "../Figure.hpp"
 
 #define NUM_OF_VERTECES_T 3
@@ -20,11 +22,11 @@ template <typename T>
 class Triangle : public Figure<T> {
 	public:
 		Triangle();
-		inline constexpr typename Figure<T>::size_type size() const noexcept override {
+		inline typename Figure<T>::size_type size() const noexcept override {
 			return NUM_OF_VERTECES_T;
 		}
-		inline void type() const noexcept override {
-			std::cout << "triangle";
+		inline std::string type() const noexcept override {
+			return "triangle";
 		}
 
 		friend std::ostream& operator<< <>(std::ostream& cout, const Triangle<T>& t);

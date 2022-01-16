@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cmath>
 #include "../Figure.hpp"
-
+#include <string>
 #define NUM_OF_VERTECES_S 4
 
 template <typename T>
@@ -20,11 +20,11 @@ template <typename T>
 class Square : public Figure<T> {
 	public:
 		Square();
-		inline constexpr typename Figure<T>::size_type size() const noexcept override {
+		inline typename Figure<T>::size_type size() const noexcept override {
 			return NUM_OF_VERTECES_S;
 		}
-		inline void type() const noexcept override {
-			std::cout << "square";
+		inline std::string type() const noexcept override {
+			return "square";
 		}
 
 		friend std::ostream& operator<< <>(std::ostream& cout, const Square<T>& t);

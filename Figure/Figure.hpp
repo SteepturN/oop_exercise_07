@@ -4,6 +4,7 @@
 #include <utility>
 #include <iostream>
 #include <cmath>
+#include <string>
 
 template <typename T>
 class Figure;
@@ -24,8 +25,8 @@ class Figure {
 		Figure(const Figure<T>& t);
 		Figure();
 		virtual ~Figure() = default;
-		inline constexpr virtual size_type size() const noexcept = 0;//{return 0;}
-		inline virtual void type() const noexcept = 0;//{std::cout << "figure";}
+		inline virtual size_type size() const noexcept = 0;//{return 0;}
+		inline virtual std::string type() const noexcept = 0;//{std::cout << "figure";}
 		vertex_type center() const noexcept;
 		void coordinates() const noexcept;
 		double area() const noexcept;

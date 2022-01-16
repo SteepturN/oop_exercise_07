@@ -62,7 +62,7 @@ void Application::export_document(const std::string& name) const { //save doc in
 	}
 	doc.close();
 }
-int Application::buff_size() const{
+std::size_t Application::buff_size() const{
 	return buff.size();
 }
 void Application::import_document(const std::string& name) {
@@ -90,12 +90,12 @@ void Application::import_document(const std::string& name) {
 			    break;
 		}
 		read_figure_ptr->verteces.resize(read_figure_size);
-		for(int i = 0; i < read_figure_size; ++i) {
+		for(std::size_t i = 0; i < read_figure_size; ++i) {
 			doc.read(reinterpret_cast<char*>(&(read_figure_ptr->verteces[i])),
 			         sizeof(Figure<double>::vertex_type));
 		}
 		buff.push_back(std::shared_ptr<Figure<double>>(read_figure_ptr));
-		doc.read(reinterpret_cast<char*>(read_figure_size),
+		doc.read(reinterpret_cast<char*>(&read_figure_size),
 		         sizeof(Figure<double>::size_type));
 	}
 	doc.close();
@@ -112,7 +112,6 @@ void Application::clear() const {
 
 void Application::print_document() const {
 	for(auto i : buff) {
-		i->type();
-		std::cout << std::endl;
+		std::cout << i->type() << std::endl;
 	}
 }
